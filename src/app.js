@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {render} from 'react-dom';
 import Board from './Board/Board';
 
-ReactDOM.render(
+render(
 	<Board />,
 	document.getElementById('app')
 );
