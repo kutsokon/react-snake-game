@@ -44,8 +44,8 @@ class Board extends Component {
 	}
 
 	render() {
-		let boardCells = this.state.board.map((cell) => {
-			return <Cell x={cell.x} y={cell.x} snake={cell.snake} head={cell.head} food={cell.food}/>
+		let boardCells = this.state.board.map((cell, index) => {
+			return <Cell key={index} x={cell.x} y={cell.x} snake={cell.snake} head={cell.head} food={cell.food}/>
 		});
 
 		return (
