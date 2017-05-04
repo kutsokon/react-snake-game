@@ -1,0 +1,47 @@
+.board-wrapper  {
+    width: 30rem;
+    height: 30rem;
+    font-size: 0;
+    margin: 0 auto;
+    border: 1px solid #7f8c8d;
+
+    .board-cell {
+        display: inline-block;
+        width: 1.5rem;
+        height: 1.5rem;
+        background: #ecf0f1;
+        box-sizing: border-box;
+        border: 1px solid #7f8c8d;
+
+        &.snake {
+            background: #2ecc71;
+        }
+
+        &.head {
+            background: #27ae60;
+        }
+
+        &.food {
+            background: #e74c3c;
+        }
+    }
+}
+
+.start-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    margin: 2rem auto;
+    background: #3498db;
+    color: #ffffff;
+    cursor: pointer;
+    text-transform: uppercase;
+
+    &.disabled {
+        background: #bdc3c7;
+        pointer-events: none;
+    }
+
+    &:hover {
+        background: #2980b9;
+    }
+}

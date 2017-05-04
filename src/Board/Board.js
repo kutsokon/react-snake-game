@@ -1,34 +1,61 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import Cell from './Cell/Cell';
+import snakeGame from './snake-game';
 import './board.css';
 
-
+let stepInterval;
+let gameSpeed = snakeGame.getGameSpeed();
 
 class Board extends Component {
-	render() {
-		// const boardHeight = 20;
-		// const boardWidth = 20;
-		// let board = [];
-        //
-		// // initialize cells
-		// for (var i = 0; i <= boardHeight; i++) {
-		// 	board[i] = [];
-        //
-		// 	for (var j = 0; j <= boardWidth; j++) {
-		// 		board[i][j] = {
-		// 			x: i,
-		// 			y: j
-		// 		}
-		// 	}
-		// }
-        //
-		// let boardCells = board.map((column) => {
-		// 	return column.map((cell) => {
-		// 		return <div key={cell.toString()} className="board-cell"></div>
-		// 	})
-		// });
+	constructor () {
+		super()
+		snakeGame.initGame();
+		this.state = {
+			board: snakeGame.getBoard(),
+			score: snakeGame.getScore(),
+			gameOver: snakeGame.checkGameOverStatus()
+		}
+		this.startGame = this.startGame.bind(this);
+		this.updateStep = this.updateStep.bind(this);
+		this.updateView = this.updateView.bind(this);
+	}
 
-		return <div className="board-wrapper">Hello!!!</div>
+	startGame () {
+		snakeGame.startGame();
+		this.updateView();
+		stepInterval = setInterval(this.updateStep, gameSpeed);
+	}
+
+	updateStep () {
+		if(snakeGame.checkGameOverStatus()) {
+			clearInterval(stepInterval);
+		};
+		snakeGame.oneStep();
+		this.updateView();
+	}
+
+	updateView () {
+		this.setState({
+			board: snakeGame.getBoard(),
+			score: snakeGame.getScore(),
+			gameOver: snakeGame.checkGameOverStatus()
+		});
+	}
+
+	render() {
+		let boardCells = this.state.board.map((cell) => {
+			return <Cell x={cell.x} y={cell.x} snake={cell.snake} head={cell.head} food={cell.food}/>
+		});
+
+		return (
+			<div>
+				<div>Score: {this.state.score}</div>
+				<div className='board-wrapper'>{boardCells}</div>
+				<div className={"start-button " + (!this.state.gameOver ? 'disabled' : '')}
+					 onClick={this.startGame}>Start game</div>
+			</div>
+		)
 	}
 }
 

@@ -8,7 +8,7 @@ const config = {
 		path: path.resolve(__dirname, 'dist')
 	},
     devServer: {
-        contentBase: path.join(__dirname, "dist"),
+        contentBase: path.join(__dirname, 'dist'),
         compress: true,
         port: 9000
     },
@@ -21,12 +21,26 @@ const config = {
 			},
 			{
 				test: /\.css$/,
-				use: ['style-loader', 'css-loader']
+				use: ['style-loader', 'css-loader', {
+					loader: 'postcss-loader',
+					options: {
+						plugins: () => {
+							return [
+								require('precss'),
+								require('autoprefixer')
+							]
+						}
+					}
+				}]
 			}
 		]
 	},
     plugins: [
-            new CopyWebpackPlugin([{ from: path.resolve(__dirname, 'index.html'), to: path.resolve(__dirname, 'dist')}])
+            new CopyWebpackPlugin([{
+					from: path.resolve(__dirname, 'index.html'),
+					to: path.resolve(__dirname, 'dist')
+				}
+			])
     ]
 };
 
