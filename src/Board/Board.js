@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Cell from './Cell/Cell';
-import snakeGame from './snake-game';
+import snakeGame from '../snake-game';
 import './board.css';
 
 let stepInterval;
